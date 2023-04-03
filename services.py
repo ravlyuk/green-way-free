@@ -16,7 +16,8 @@ def download_questions():
             .replace('&laquo;', "«") \
             .replace('&raquo;', "»") \
             .replace('ПДР online', '') \
-            .replace('&rsquo;', 'ʼ')
+            .replace('&rsquo;', 'ʼ') \
+            .replace('&mdash;', '-')
         resp_dict = json.loads(resp)
 
         with open(f'{json_folder}/{subject}.json', 'w') as file:
@@ -39,3 +40,7 @@ def get_subjects():
         subjects.update({float(file_name.split(' ')[0].strip('.')): file_name.replace('.json', '')})
 
     return subjects
+
+
+if __name__ == '__main__':
+    download_questions()
