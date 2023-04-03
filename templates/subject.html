@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>ПДР Тести</title>
+    <!-- Adding Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-3">
+    <h2 class="title-quiz"> {{ title }}</h2>
+    {% for question in questions %}
+        <div class="card mb-3">
+            {% if question.image %}
+                <img src="{{ question.image }}" class="card-img-top image-quiz" alt="{{ question.text }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ question.text }}</h5>
+                <form class="answer-form">
+                    {% for answer in question.answers %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ question.id }}"
+                                   id="answer-{{ answer.id }}"
+                                   value="{{ loop.index }}">
+                            <label class="form-check-label" for="answer-{{ answer.id }}">
+                                {{ answer.text }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" name="question_id" value="{{ question.id }}">
+                    <div style="padding-top: 5px" id="{{ question.id }}-result">
+
+                    </div>
+                    <div class="button-style">
+                        <button class="btn btn-primary btn-sm" type="button"
+                                onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')">
+                            Перевірити
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    function checkAnswer(questionId, rightAnswerIndex) {
+        let selectedAnswerId = document.querySelector('input[name="' + questionId + '"]:checked').value - 1;
+        let resultElement = document.getElementById(questionId + '-result');
+
+
+        if (selectedAnswerId == rightAnswerIndex) {
+            resultElement.innerHTML = '<b style="color: #00c700; ">Вірно!</b>';
+        } else {
+            resultElement.innerHTML = '<b style="color: red; ">Не вірно!</b>';
+        }
+    }
+</script>
+
+<style>
+    .button-style {
+        padding-top: 10px;
+    }
+
+    .image-quiz {
+        max-width: 50%;
+        max-height: 800px;
+    }
+
+    .title-quiz {
+        padding-bottom: 20px;
+    }
+</style>
+</body>
+</html>
