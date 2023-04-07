@@ -7,7 +7,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 
-@app.get('/')
+@app.get('/pdr')
 def index(request: Request):
     subjects = get_subjects()
     subjects = dict(sorted(subjects.items()))
