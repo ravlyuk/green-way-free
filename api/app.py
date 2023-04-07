@@ -1,4 +1,3 @@
-import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 
@@ -22,6 +21,6 @@ def subject(request: Request, pk: int | float):
     title = questions[0]['h1']
     return templates.TemplateResponse("subject.html", {"request": request, 'questions': questions, 'title': title})
 
-
-if __name__ == "__main__":
-    uvicorn.run('app:app', host="0.0.0.0", port=8001, reload=True, workers=2)
+#
+# if __name__ == "__main__":
+#     uvicorn.run('app:app', host="0.0.0.0", port=8001, reload=True, workers=2)
