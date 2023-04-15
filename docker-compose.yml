@@ -4,7 +4,7 @@ services:
 
   web:
     build: ./api
-    platform: linux/amd64
+    platform: linux/arm64
     volumes:
       - ./api:/build
     ports:
