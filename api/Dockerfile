@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 nginx/unit:1.29.1-python3.11
+FROM --platform=linux/arm/v5 nginx:stable
 
 # Our Debian with Python and Nginx for python apps.
 # See https://hub.docker.com/r/nginx/unit/
