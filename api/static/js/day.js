@@ -49,6 +49,8 @@ function getRandomDate() {
 
 function setRandomDate() {
     document.getElementById("date").textContent = getRandomDate().toDateString().split(' ').slice(1).join(' ');
+    document.getElementById("result").textContent = "";
+    document.getElementById("result").classList.remove("text-danger");
 }
 
 // Check the selected day against the correct day of the week for the random date
