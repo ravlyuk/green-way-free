@@ -54,6 +54,8 @@
             </div>
         </div>
     {% endfor %}
+
+
 </div>
 
 <script>
@@ -85,6 +87,8 @@
             behavior: "smooth"
         })
     }
+
+
 </script>
 
 <style>
@@ -144,6 +148,19 @@
         font-size: 12px;
         color: blue;
     }
+
+
+    .form-check-input:hover:not(:checked) + .form-check-label {
+        background-color: #eee;
+    }
+
+
+    .form-check-input:checked + .form-check-label {
+        background-color: transparent;
+        color: #212529;
+    }
+
+
 </style>
 </body>
 </html>
