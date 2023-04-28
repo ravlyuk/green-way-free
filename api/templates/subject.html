@@ -41,12 +41,15 @@
                     <div style="padding-top: 5px" id="{{ question.id }}-result">
 
                     </div>
+                    <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}" class="comments">Коментарі</a>
                     <div class="button-style">
                         <button class="btn btn-primary btn-sm" type="button"
                                 onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')">
                             Перевірити
                         </button>
+
                     </div>
+
                 </form>
             </div>
         </div>
@@ -133,6 +136,13 @@
 
     .btn-up:before {
         content: "\2191"; /* Unicode character for upward arrow */
+    }
+
+    .comments {
+        text-align: right;
+        padding: 20px;
+        font-size: 12px;
+        color: darkgreen;
     }
 </style>
 </body>
