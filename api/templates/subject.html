@@ -38,10 +38,9 @@
                         </div>
                     {% endfor %}
                     <input type="hidden" name="question_id" value="{{ question.id }}">
-                    <div style="padding-top: 5px" id="{{ question.id }}-result">
-
-                    </div>
                     <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}" class="comments">Коментарі</a>
+                    <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
+
                     <div class="button-style">
                         <button class="btn btn-primary btn-sm" type="button"
                                 onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')">
