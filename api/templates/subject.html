@@ -75,6 +75,13 @@
         document.getElementById("correct-count").textContent = correctCount;
         document.getElementById("wrong-count").textContent = wrongCount;
     }
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }
 </script>
 
 <style>
@@ -107,6 +114,25 @@
 
     .correct-text {
         color: #28a745;
+    }
+
+    .btn-up {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #4caf50;
+        color: white;
+        font-size: 30px;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-up:before {
+        content: "\2191"; /* Unicode character for upward arrow */
     }
 </style>
 </body>
