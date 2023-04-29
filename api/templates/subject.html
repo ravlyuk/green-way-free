@@ -62,23 +62,53 @@
     let correctCount = 0;
     let wrongCount = 0;
 
+    const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+    radioInputs.forEach(input => {
+        const inputName = input.getAttribute('name');
+
+        if (inputName) {
+            if (input.id in localStorage) {
+                input.checked = true;
+
+                const answerDiv = input.parentElement;
+                let resultElement = document.getElementById(input.name + '-result');
+                answerDiv.style.backgroundColor = "#46f86fb0";
+                resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
+                correctCount++;
+                setCorrectCount();
+            }
+
+        }
+
+    });
+
     function checkAnswer(questionId, rightAnswerIndex) {
         let selectedAnswer = document.querySelector('input[name="' + questionId + '"]:checked');
+        let rightAnswer = selectedAnswer.value - 1
         const answerDiv = selectedAnswer.parentElement;
         let resultElement = document.getElementById(questionId + '-result');
 
-        if (selectedAnswer.value - 1 == rightAnswerIndex) {
+        if (rightAnswer == rightAnswerIndex) {
             answerDiv.style.backgroundColor = "#46f86fb0";
             resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
             correctCount++;
+            setCorrectCount()
+            localStorage.setItem(selectedAnswer.id, 'true');
         } else {
             answerDiv.style.backgroundColor = "#f8a1a9ad";
             resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
             wrongCount++;
-        }
 
-        document.getElementById("correct-count").textContent = correctCount;
-        document.getElementById("wrong-count").textContent = wrongCount;
+        }
+    }
+
+    function setCorrectCount() {
+        document.getElementById("correct-count").textContent = correctCount.toString();
+    }
+
+    function setWongCount() {
+        document.getElementById("wrong-count").textContent = wrongCount.toString();
     }
 
     function scrollToTop() {
