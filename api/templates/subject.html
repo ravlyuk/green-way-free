@@ -103,13 +103,6 @@
             if (inputName) {
                 if (input.id in localStorage) {
                     localStorage.removeItem(input.id)
-                    {#input.checked = false;#}
-                    {#const answerDiv = input.parentElement;#}
-                    {#let resultElement = document.getElementById(input.name + '-result');#}
-                    {#answerDiv.style.backgroundColor = "#46f86fb0";#}
-                    {#resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';#}
-                    {#correctCount++;#}
-                    {#setCorrectCount();#}
                 }
             }
         });
