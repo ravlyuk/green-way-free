@@ -55,13 +55,19 @@
     color: blue;
 }
 
+.form-check {
+    position: relative;
+    display: block;
+    padding: 5px 25px;
+}
 
 .form-check-input:hover:not(:checked) + .form-check-label {
     background-color: #eee;
-}
 
+}
 
 .form-check-input:checked + .form-check-label {
     background-color: transparent;
     color: #212529;
+    /*padding: 5px 25px;*/
 }
