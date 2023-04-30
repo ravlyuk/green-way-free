@@ -6,7 +6,7 @@
     <!-- Adding Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ url_for('static', path='css/pdr-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/pdr-style.css') }}">
 
 
 </head>
@@ -16,6 +16,14 @@
 
     <h2 id="subj_title" class="title-quiz"> {{ title }}</h2>
     <p class="title-quiz">Тестів: {{ questions|length }}</p>
+
+    <div style="padding-bottom: 40px">
+        <button class="btn btn-warning" type="button"
+                onclick="clearHistory()">
+            Очистити історію відповідей
+        </button>
+
+    </div>
 
     <div class="results-container">
         <p>Правильно: <span id="correct-count" class="correct-text">0</span></p>
@@ -67,22 +75,47 @@
 
     const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-    radioInputs.forEach(input => {
-        const inputName = input.getAttribute('name');
+    function loadHistory() {
 
-        if (inputName) {
-            if (input.id in localStorage) {
-                input.checked = true;
+        radioInputs.forEach(input => {
+            const inputName = input.getAttribute('name');
 
-                const answerDiv = input.parentElement;
-                let resultElement = document.getElementById(input.name + '-result');
-                answerDiv.style.backgroundColor = "#46f86fb0";
-                resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
-                correctCount++;
-                setCorrectCount();
+            if (inputName) {
+                if (input.id in localStorage) {
+                    input.checked = true;
+                    const answerDiv = input.parentElement;
+                    let resultElement = document.getElementById(input.name + '-result');
+                    answerDiv.style.backgroundColor = "#46f86fb0";
+                    resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
+                    correctCount++;
+                    setCorrectCount();
+                }
             }
-        }
-    });
+        });
+    }
+
+    function clearHistory() {
+        const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+        radioInputs.forEach(input => {
+            const inputName = input.getAttribute('name');
+
+            if (inputName) {
+                if (input.id in localStorage) {
+                    localStorage.removeItem(input.id)
+                    {#input.checked = false;#}
+                    {#const answerDiv = input.parentElement;#}
+                    {#let resultElement = document.getElementById(input.name + '-result');#}
+                    {#answerDiv.style.backgroundColor = "#46f86fb0";#}
+                    {#resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';#}
+                    {#correctCount++;#}
+                    {#setCorrectCount();#}
+                }
+            }
+        });
+
+        location.reload()
+    }
 
     function checkAnswer(questionId, rightAnswerIndex) {
         let selectedAnswer = document.querySelector('input[name="' + questionId + '"]:checked');
@@ -118,6 +151,8 @@
             behavior: "smooth"
         })
     }
+
+    loadHistory()
 
 
 </script>
