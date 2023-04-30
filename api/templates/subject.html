@@ -41,6 +41,7 @@
                     {% for answer in question.answers %}
                         <div class="form-check" id="answer">
                             <input class="form-check-input" type="radio" name="{{ question.id }}"
+                                   onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')"
                                    id="answer-{{ answer.id }}"
                                    value="{{ loop.index }}">
                             <label class="form-check-label" for="answer-{{ answer.id }}">
@@ -53,13 +54,13 @@
                        class="comments">Коментарі</a>
                     <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
 
-                    <div class="button-style">
-                        <button class="btn btn-primary btn-sm" type="button"
-                                onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')">
-                            Перевірити
-                        </button>
-
-                    </div>
+{#                    <div class="button-style">#}
+{#                        <button class="btn btn-primary btn-sm" type="button"#}
+{#                                onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')">#}
+{#                            Перевірити#}
+{#                        </button>#}
+{##}
+{#                    </div>#}
 
                 </form>
             </div>
