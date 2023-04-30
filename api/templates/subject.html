@@ -6,6 +6,9 @@
     <!-- Adding Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', path='css/pdr-style.css') }}">
+
+
 </head>
 <body>
 <div class="container mt-3">
@@ -78,9 +81,7 @@
                 correctCount++;
                 setCorrectCount();
             }
-
         }
-
     });
 
     function checkAnswer(questionId, rightAnswerIndex) {
@@ -99,7 +100,6 @@
             answerDiv.style.backgroundColor = "#f8a1a9ad";
             resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
             wrongCount++;
-
         }
     }
 
@@ -121,76 +121,5 @@
 
 </script>
 
-<style>
-    .button-style {
-        padding-top: 10px;
-    }
-
-    .image-quiz {
-        max-width: 50%;
-        max-height: 800px;
-    }
-
-    .title-quiz {
-        padding-bottom: 20px;
-    }
-
-    .results-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        background-color: #fff;
-        padding: 10px;
-        border-top: 1px solid #ccc;
-        width: 200px;
-    }
-
-    .wrong-text {
-        color: red;
-    }
-
-    .correct-text {
-        color: #28a745;
-    }
-
-    .btn-up {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: #4caf50;
-        color: white;
-        font-size: 30px;
-        text-align: center;
-        border: none;
-        cursor: pointer;
-    }
-
-    .btn-up:before {
-        content: "\2191"; /* Unicode character for upward arrow */
-    }
-
-    .comments {
-        text-align: right;
-        padding: 20px;
-        font-size: 12px;
-        color: blue;
-    }
-
-
-    .form-check-input:hover:not(:checked) + .form-check-label {
-        background-color: #eee;
-    }
-
-
-    .form-check-input:checked + .form-check-label {
-        background-color: transparent;
-        color: #212529;
-    }
-
-
-</style>
 </body>
 </html>
