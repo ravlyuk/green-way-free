@@ -50,6 +50,7 @@
 
 .comments {
     text-align: right;
+    padding: 0 10px;
     font-size: 12px;
     color: blue;
 }
@@ -68,5 +69,8 @@
 .form-check-input:checked + .form-check-label {
     background-color: transparent;
     color: #212529;
-    /*padding: 5px 25px;*/
+}
+
+.form-check:hover {
+  background-color: #f0f0f0; /* Change to the desired color */
 }
