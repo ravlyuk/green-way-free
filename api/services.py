@@ -18,7 +18,7 @@ def download_questions():
             .replace('ПДР online', '') \
             .replace('&rsquo;', 'ʼ') \
             .replace('&mdash;', '-') \
-            .replace('&lsquo;;', 'ʼ')
+            .replace('&lsquo;', 'ʼ')
         resp_dict = json.loads(resp)
 
         with open(f'{json_folder}/{subject}.json', 'w') as file:
