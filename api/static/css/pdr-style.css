@@ -83,3 +83,7 @@
     z-index: 1030;
     background: black;
 }
+
+.main-container {
+    padding-top: 80px
+}

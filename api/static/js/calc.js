@@ -1,6 +1,6 @@
 function calc() {
     const title = document.getElementById('title');
-    title.innerHTML = `Percentage Calculator`;
+    title.innerHTML = `Калькулятор відсотків числа X від числа Y`;
     const raceview = document.getElementById('page-content');
     raceview.innerHTML = '';
 
@@ -12,9 +12,9 @@ function calc() {
     <div class="container">
             <div class="col-md-6 offset-md-3 col-sm-12">
                 <form>
-                    <input type="number" id="number" placeholder="Enter a number 1">
-                    <input type="number" id="percentage" placeholder="Enter a number 2">
-                    <button type="button" class="btn" onclick="calculate()">Calculate</button>
+                    <input type="number" id="number" placeholder="Введіть число 1">
+                    <input type="number" id="percentage" placeholder="Введіть число 2">
+                    <button type="button" class="btn" onclick="calculate()">Розрахувати</button>
                 </form>
                 <p class="result" id="result"></p>
             </div>
