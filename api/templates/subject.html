@@ -1,148 +1,140 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="utf-8">
-    <title>ПДР Тести</title>
-    <!-- Adding Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/pdr-style.css') }}">
+{% extends 'base.html' %}
 
+{% block title %}{{ title }}{% endblock %}
 
-</head>
-<body>
-<div class="container mt-3">
-    <button class="btn-up" onclick="scrollToTop()"></button>
+{% block content %}
 
-    <h2 id="subj_title" class="title-quiz"> {{ title }}</h2>
-    <p class="title-quiz">Тестів: {{ questions|length }}</p>
+    <div class="container mt-3" style="padding-top: 100px">
+        <button class="btn-up" onclick="scrollToTop()"></button>
 
-    <div style="padding-bottom: 40px">
-        <button class="btn btn-warning" type="button"
-                onclick="clearHistory()">
-            Очистити історію відповідей
-        </button>
+        <h2 id="subj_title" class="title-quiz"> {{ title }}</h2>
+        <p class="title-quiz">Тестів: {{ questions|length }}</p>
 
-    </div>
+        <div style="padding-bottom: 40px">
+            <button class="btn btn-warning" type="button"
+                    onclick="clearHistory()">
+                Очистити історію відповідей
+            </button>
 
-    <div class="results-container">
-        <p>Правильно: <span id="correct-count" class="correct-text">0</span></p>
-        <p>Не правильно: <span id="wrong-count" class="wrong-text">0</span></p>
-    </div>
-
-    {% for question in questions %}
-        <div class="card mb-3">
-            {% if question.image %}
-                <img src="{{ question.image }}" class="card-img-top image-quiz" alt="{{ question.text }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ question.text }}</h5>
-                <form class="answer-form">
-                    {% for answer in question.answers %}
-                        <div class="form-check" id="answer">
-                            <input class="form-check-input" type="radio" name="{{ question.id }}"
-                                   onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')"
-                                   id="answer-{{ answer.id }}"
-                                   value="{{ loop.index }}">
-                            <label class="form-check-label" for="answer-{{ answer.id }}">
-                                {{ answer.text }}
-                            </label>
-                        </div>
-                    {% endfor %}
-                    <input type="hidden" name="question_id" value="{{ question.id }}">
-                    <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}" target="_blank"
-                       class="comments">Коментарі</a>
-                    <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
-
-
-                </form>
-            </div>
         </div>
-    {% endfor %}
+
+        <div class="results-container">
+            <p>Правильно: <span id="correct-count" class="correct-text">0</span></p>
+            <p>Не правильно: <span id="wrong-count" class="wrong-text">0</span></p>
+        </div>
+
+        {% for question in questions %}
+            <div class="card mb-3">
+                {% if question.image %}
+                    <img src="{{ question.image }}" class="card-img-top image-quiz" alt="{{ question.text }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.text }}</h5>
+                    <form class="answer-form">
+                        {% for answer in question.answers %}
+                            <div class="form-check" id="answer">
+                                <input class="form-check-input" type="radio" name="{{ question.id }}"
+                                       onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')"
+                                       id="answer-{{ answer.id }}"
+                                       value="{{ loop.index }}">
+                                <label class="form-check-label" for="answer-{{ answer.id }}">
+                                    {{ answer.text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                        <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}"
+                           target="_blank"
+                           class="comments">Коментарі</a>
+                        <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
 
 
-</div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
 
-<script>
-    let correctCount = 0;
-    let wrongCount = 0;
 
-    const radioInputs = document.querySelectorAll('input[type="radio"]');
+    </div>
 
-    function loadHistory() {
+    <script>
+        let correctCount = 0;
+        let wrongCount = 0;
 
-        radioInputs.forEach(input => {
-            const inputName = input.getAttribute('name');
-
-            if (inputName) {
-                if (input.id in localStorage) {
-                    input.checked = true;
-                    const answerDiv = input.parentElement;
-                    let resultElement = document.getElementById(input.name + '-result');
-                    answerDiv.style.backgroundColor = "#46f86fb0";
-                    resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
-                    correctCount++;
-                    setCorrectCount();
-                }
-            }
-        });
-    }
-
-    function clearHistory() {
         const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-        radioInputs.forEach(input => {
-            const inputName = input.getAttribute('name');
+        function loadHistory() {
 
-            if (inputName) {
-                if (input.id in localStorage) {
-                    localStorage.removeItem(input.id)
+            radioInputs.forEach(input => {
+                const inputName = input.getAttribute('name');
+
+                if (inputName) {
+                    if (input.id in localStorage) {
+                        input.checked = true;
+                        const answerDiv = input.parentElement;
+                        let resultElement = document.getElementById(input.name + '-result');
+                        answerDiv.style.backgroundColor = "#46f86fb0";
+                        resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
+                        correctCount++;
+                        setCorrectCount();
+                    }
                 }
-            }
-        });
-
-        location.reload()
-    }
-
-    function checkAnswer(questionId, rightAnswerIndex) {
-        let selectedAnswer = document.querySelector('input[name="' + questionId + '"]:checked');
-        let rightAnswer = selectedAnswer.value - 1
-        const answerDiv = selectedAnswer.parentElement;
-        let resultElement = document.getElementById(questionId + '-result');
-
-        if (rightAnswer == rightAnswerIndex) {
-            answerDiv.style.backgroundColor = "#46f86fb0";
-            resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
-            correctCount++;
-            setCorrectCount()
-            localStorage.setItem(selectedAnswer.id, 'true');
-        } else {
-            answerDiv.style.backgroundColor = "#f8a1a9ad";
-            resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
-            wrongCount++;
-            setWongCount()
+            });
         }
-    }
 
-    function setCorrectCount() {
-        document.getElementById("correct-count").textContent = correctCount.toString();
-    }
+        function clearHistory() {
+            const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-    function setWongCount() {
-        document.getElementById("wrong-count").textContent = wrongCount.toString();
-    }
+            radioInputs.forEach(input => {
+                const inputName = input.getAttribute('name');
 
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        })
-    }
+                if (inputName) {
+                    if (input.id in localStorage) {
+                        localStorage.removeItem(input.id)
+                    }
+                }
+            });
 
-    loadHistory()
+            location.reload()
+        }
+
+        function checkAnswer(questionId, rightAnswerIndex) {
+            let selectedAnswer = document.querySelector('input[name="' + questionId + '"]:checked');
+            let rightAnswer = selectedAnswer.value - 1
+            const answerDiv = selectedAnswer.parentElement;
+            let resultElement = document.getElementById(questionId + '-result');
+
+            if (rightAnswer == rightAnswerIndex) {
+                answerDiv.style.backgroundColor = "#46f86fb0";
+                resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
+                correctCount++;
+                setCorrectCount()
+                localStorage.setItem(selectedAnswer.id, 'true');
+            } else {
+                answerDiv.style.backgroundColor = "#f8a1a9ad";
+                resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
+                wrongCount++;
+                setWongCount()
+            }
+        }
+
+        function setCorrectCount() {
+            document.getElementById("correct-count").textContent = correctCount.toString();
+        }
+
+        function setWongCount() {
+            document.getElementById("wrong-count").textContent = wrongCount.toString();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            })
+        }
+
+        loadHistory()
 
 
-</script>
-
-</body>
-</html>
+    </script>
+{% endblock %}
