@@ -7,8 +7,11 @@
     <div class="container mt-3 main-container">
         <button class="btn-up" onclick="scrollToTop()"></button>
 
-        <h2 id="subj_title" class="title-quiz"> {{ title }}</h2>
-        <p class="title-quiz">Тестів: {{ questions|length }}</p>
+        <!-- Title and number of questions -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="subj_title" class="title-quiz mb-0">{{ title }}</h2>
+            <span class="title-quiz font-weight-bold">{{ questions|length }} тестів</span>
+        </div>
 
         <div style="padding-bottom: 40px">
             <button class="btn btn-warning" type="button"
@@ -18,10 +21,19 @@
 
         </div>
 
-        <div class="results-container">
-            <p>Правильно: <span id="correct-count" class="correct-text">0</span></p>
-            <p>Не правильно: <span id="wrong-count" class="wrong-text">0</span></p>
+        <!-- Results container -->
+    <div class="results-container mb-4">
+        <div>
+            <div class="p-2">
+                <div class="text-success mb-1">Правильно:</div>
+                <div class="h4 mb-0"><span id="correct-count" class="correct-text">0</span></div>
+            </div>
+            <div class="p-2">
+                <div class="text-danger mb-1">Не правильно:</div>
+                <div class="h4 mb-0"><span id="wrong-count" class="wrong-text">0</span></div>
+            </div>
         </div>
+    </div>
 
         {% for question in questions %}
             <div class="card mb-3">
@@ -42,10 +54,14 @@
                                 </label>
                             </div>
                         {% endfor %}
+
+                        <!-- Hidden question ID field -->
                         <input type="hidden" name="question_id" value="{{ question.id }}">
+
+                        <!-- Link to comments -->
                         <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}"
                            target="_blank"
-                           class="comments">Коментарі</a>
+                           class="comments mt-3 d-block">Коментарі</a>
                         <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
 
 

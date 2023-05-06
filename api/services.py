@@ -12,13 +12,17 @@ def download_questions():
     for subject, data in request_data.items():
         print(f'Download questions: "{subject}"')
         resp = requests.post(url=url, data=data, headers=headers).text
+
         resp = resp.replace('&ndash;', '-') \
             .replace('&laquo;', "«") \
             .replace('&raquo;', "»") \
             .replace('ПДР online', '') \
             .replace('&rsquo;', 'ʼ') \
             .replace('&mdash;', '-') \
-            .replace('&lsquo;', 'ʼ')
+            .replace('&lsquo;', 'ʼ') \
+            .replace('&quot;', "'")
+
+
         resp_dict = json.loads(resp)
 
         with open(f'{json_folder}/{subject}.json', 'w') as file:

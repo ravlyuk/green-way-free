@@ -74,7 +74,7 @@
         "id": "5795",
         "image_alt": "",
         "image_title": "",
-        "pdd_section": "&lt;p&gt;&lt;a href=&quot;http://monolith.in.ua/pdr-shtrafi-vodiy-pishohod/&quot; target=&quot;_blank&quot;&gt;Стаття 123 ч. 1 КУпАП&lt;/a&gt;&lt;/p&gt;",
+        "pdd_section": "&lt;p&gt;&lt;a href='http://monolith.in.ua/pdr-shtrafi-vodiy-pishohod/' target='_blank'&gt;Стаття 123 ч. 1 КУпАП&lt;/a&gt;&lt;/p&gt;",
         "rightAnswerIndex": 0,
         "section_id": "138",
         "text": "В'їзд водіїв на залізничний переїзд на заборонний сигнал світлофора при закритому шлагбаумі тягне за собою:",
@@ -192,7 +192,7 @@
             },
             {
                 "id": "22527",
-                "text": "Особа не несе відповідальність за &quot;втечу&quot; з місця ДТП."
+                "text": "Особа не несе відповідальність за 'втечу' з місця ДТП."
             }
         ],
         "author": "",
@@ -201,7 +201,7 @@
         "id": "5865",
         "image_alt": "",
         "image_title": "",
-        "pdd_section": "&lt;p&gt;&lt;a href=&quot;http://monolith.in.ua/pdr-shtrafi-vodiy-pishohod/&quot; target=&quot;_blank&quot;&gt;Стаття 122-4 КУпАП&lt;/a&gt;&lt;/p&gt;",
+        "pdd_section": "&lt;p&gt;&lt;a href='http://monolith.in.ua/pdr-shtrafi-vodiy-pishohod/' target='_blank'&gt;Стаття 122-4 КУпАП&lt;/a&gt;&lt;/p&gt;",
         "rightAnswerIndex": 0,
         "section_id": "138",
         "text": "Залишення водіями місця ДТП, до якої вони причетні, тягне за собою:",
