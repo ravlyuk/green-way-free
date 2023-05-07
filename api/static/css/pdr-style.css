@@ -102,11 +102,11 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: blue;
+    background: #202023;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: darkblue;
+    background: black;
 }
