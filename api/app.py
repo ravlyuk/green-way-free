@@ -22,6 +22,11 @@ def pdr(request: Request):
     return templates.TemplateResponse('pdr-list.html', {"request": request, 'subjects': subjects})
 
 
+@app.get('/about')
+def about(request: Request):
+    return templates.TemplateResponse('about.html', {"request": request})
+
+
 @app.get('/{pk}')
 def subject(request: Request, pk: int | float):
     subject_name = get_subjects().get(pk)
