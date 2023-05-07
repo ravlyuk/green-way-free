@@ -21,7 +21,8 @@ def download_questions():
             .replace('&mdash;', '-') \
             .replace('&lsquo;', 'ʼ') \
             .replace('&quot;', "'") \
-            .replace('&ldquo;', "'")
+            .replace('&ldquo;', "'") \
+            .replace('&rdquo;', "'")
 
         resp_dict = json.loads(resp)
 
