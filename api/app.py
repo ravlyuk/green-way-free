@@ -22,12 +22,12 @@ def pdr(request: Request):
     return templates.TemplateResponse('pdr-list.html', {"request": request, 'subjects': subjects})
 
 
-@app.get('/about')
+@app.get('/pdr/about')
 def about(request: Request):
     return templates.TemplateResponse('about.html', {"request": request})
 
 
-@app.get('/{pk}')
+@app.get('pdr//{pk}')
 def subject(request: Request, pk: int | float):
     subject_name = get_subjects().get(pk)
     questions = read_questions(subject_name)
