@@ -22,18 +22,18 @@
         </div>
 
         <!-- Results container -->
-    <div class="results-container mb-4">
-        <div>
-            <div class="p-2">
-                <div class="text-success mb-1">Правильно:</div>
-                <div class="h4 mb-0"><span id="correct-count" class="correct-text">0</span></div>
-            </div>
-            <div class="p-2">
-                <div class="text-danger mb-1">Не правильно:</div>
-                <div class="h4 mb-0"><span id="wrong-count" class="wrong-text">0</span></div>
+        <div class="results-container mb-4">
+            <div>
+                <div class="p-2">
+                    <div class="text-success mb-1">Правильно:</div>
+                    <div class="h4 mb-0"><span id="correct-count" class="correct-text">0</span></div>
+                </div>
+                <div class="p-2">
+                    <div class="text-danger mb-1">Не правильно:</div>
+                    <div class="h4 mb-0"><span id="wrong-count" class="wrong-text">0</span></div>
+                </div>
             </div>
         </div>
-    </div>
 
         {% for question in questions %}
             <div class="card mb-3">
@@ -76,6 +76,8 @@
     <script>
         let correctCount = 0;
         let wrongCount = 0;
+        let greenColor = "#46f86fb0"
+        let redColor = "#f8a1a9ad"
 
         const radioInputs = document.querySelectorAll('input[type="radio"]');
 
@@ -83,19 +85,23 @@
 
             radioInputs.forEach(input => {
                 const inputName = input.getAttribute('name');
+                const answerDiv = input.parentElement;
 
                 if (inputName) {
-                    if (input.id in localStorage) {
+                    if (input.id in localStorage && localStorage.getItem(input.id) === 'true') {
                         input.checked = true;
-                        const answerDiv = input.parentElement;
                         let resultElement = document.getElementById(input.name + '-result');
-                        answerDiv.style.backgroundColor = "#46f86fb0";
+                        answerDiv.style.backgroundColor = greenColor;
                         resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
                         correctCount++;
-                        setCorrectCount();
+                    } else if (input.id in localStorage && localStorage.getItem(input.id) === 'false') {
+                        answerDiv.style.backgroundColor = redColor;
+                        wrongCount++;
                     }
+
                 }
             });
+            setCount();
         }
 
         function clearHistory() {
@@ -121,26 +127,27 @@
             let resultElement = document.getElementById(questionId + '-result');
 
             if (rightAnswer == rightAnswerIndex) {
-                answerDiv.style.backgroundColor = "#46f86fb0";
+                answerDiv.style.backgroundColor = greenColor;
                 resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
                 correctCount++;
-                setCorrectCount()
+
                 localStorage.setItem(selectedAnswer.id, 'true');
             } else {
-                answerDiv.style.backgroundColor = "#f8a1a9ad";
+                answerDiv.style.backgroundColor = redColor;
                 resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
                 wrongCount++;
-                setWongCount()
+                localStorage.setItem(selectedAnswer.id, 'false');
+
             }
+
+            setCount()
         }
 
-        function setCorrectCount() {
+        function setCount() {
             document.getElementById("correct-count").textContent = correctCount.toString();
-        }
-
-        function setWongCount() {
             document.getElementById("wrong-count").textContent = wrongCount.toString();
         }
+
 
         function scrollToTop() {
             window.scrollTo({
