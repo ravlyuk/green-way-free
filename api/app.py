@@ -27,6 +27,11 @@ def about(request: Request):
     return templates.TemplateResponse('about.html', {"request": request})
 
 
+@app.get('/pdr/contact')
+def contact(request: Request):
+    return templates.TemplateResponse('contact.html', {"request": request})
+
+
 @app.get('/pdr/{pk}')
 def subject(request: Request, pk: int | float):
     subject_name = get_subjects().get(pk)
