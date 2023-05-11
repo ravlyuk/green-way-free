@@ -122,9 +122,10 @@
 
                 if (inputName) {
                     if (input.id in localStorage) {
-                        localStorage.removeItem(input.id)
+                        localStorage.removeItem(input.id);
                     }
                 }
+                localStorage.removeItem(slug);
             });
 
             location.reload()
@@ -152,7 +153,7 @@
 
                 setCount()
             }
-            
+
         }
 
         function activateInput(inputId) {
