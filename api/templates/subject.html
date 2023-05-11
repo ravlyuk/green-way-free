@@ -14,7 +14,7 @@
         <!-- Title and number of questions -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 id="subj_title" class="title-quiz mb-0">{{ title }}</h2>
-            <span class="title-quiz font-weight-bold">{{ questions|length }} тестів</span>
+            <span id="len" value="{{ questions|length }}" class="title-quiz font-weight-bold">{{ questions|length }} тестів</span>
         </div>
 
         <div style="padding-bottom: 40px">
@@ -84,6 +84,8 @@
         let wrongCount = 0;
         let greenColor = "#46f86fb0"
         let redColor = "#f8a1a9ad"
+        let slug = document.getElementById('subj_title').textContent;
+        let len = document.getElementById('len').getAttribute('value').toString();
 
         const radioInputs = document.querySelectorAll('input[type="radio"]');
 
@@ -136,7 +138,6 @@
                 answerDiv.style.backgroundColor = greenColor;
                 resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
                 correctCount++;
-
                 localStorage.setItem(selectedAnswer.id, 'true');
             } else {
                 answerDiv.style.backgroundColor = redColor;
@@ -152,8 +153,16 @@
         function setCount() {
             document.getElementById("correct-count").textContent = correctCount.toString();
             document.getElementById("wrong-count").textContent = wrongCount.toString();
-        }
 
+            let statistic = ((100 / len) * correctCount);
+
+            if (statistic === 100) {
+                localStorage.setItem(slug, 'Пройдено');
+            } else if (statistic > 0) {
+                localStorage.setItem(slug, statistic.toFixed(0).toString() + '%');
+            }
+
+        }
 
         function scrollToTop() {
             window.scrollTo({

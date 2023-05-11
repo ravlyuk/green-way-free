@@ -6,8 +6,11 @@
     <div class="container main-container">
         <h1 class="title-quiz">Теми ПДР</h1>
         <ul class="list-group">
-            {% for subject_id, subject_name in subjects.items() %}
-                <li class="list-group-item"><a href="/pdr/{{ subject_id }}">{{ subject_name }}</a></li>
+            {% for subject_id, subject_title in subjects.items() %}
+                <li class="list-group-item">
+                    <a href="/pdr/{{ subject_id }}" title="{{ subject_title }}">{{ subject_title }}</a>
+                    <span class="done-text"></span>
+                </li>
             {% endfor %}
         </ul>
     </div>
@@ -21,9 +24,33 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 
+    <script>
+        function loadHistory() {
+
+            const subjects = document.querySelectorAll("li.list-group-item");
+
+            subjects.forEach(item => {
+                const title = item.getElementsByTagName('a')[0].getAttribute('title');
+                console.log(title)
+                let statistic = localStorage.getItem(title);
+                if (!!statistic) {
+                    item.getElementsByTagName('span')[0].textContent = statistic
+                }
+
+            });
+        }
+
+        loadHistory();
+    </script>
+
     <style>
         .title-quiz {
             padding-bottom: 20px;
+        }
+
+        .done-text {
+            float: right;
+            color: green;
         }
     </style>
 {% endblock %}

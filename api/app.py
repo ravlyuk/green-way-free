@@ -18,7 +18,6 @@ def home(request: Request):
 @app.get('/pdr')
 def pdr(request: Request):
     subjects = get_subjects()
-    subjects = dict(sorted(subjects.items()))
     return templates.TemplateResponse('pdr-list.html', {"request": request, 'subjects': subjects})
 
 
@@ -34,8 +33,8 @@ def contact(request: Request):
 
 @app.get('/pdr/{pk}')
 def subject(request: Request, pk: int | float):
-    subject_name = get_subjects().get(pk)
-    questions = read_questions(subject_name)
+    questions = read_questions(pk)
+    subject_name = get_subjects()[str(pk)]
     return templates.TemplateResponse("subject.html",
                                       {"request": request, 'questions': questions, 'title': subject_name})
 
