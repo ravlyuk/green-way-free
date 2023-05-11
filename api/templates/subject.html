@@ -44,7 +44,7 @@
         {% for question in questions %}
             <div class="card mb-3">
                 {% if question.image %}
-                    <img src="{{ question.image }}" class="card-img-top image-quiz" alt="{{ question.text }}">
+                    <img src="{{ question.image }}" class="card-img-top image-quiz rounded" alt="{{ question.text }}">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ question.text }}</h5>
