@@ -58,22 +58,32 @@
 .form-check {
     position: relative;
     display: block;
-    padding: 5px 25px;
+    padding: 7px 20px;
+    margin: 10px 0;
+    border: 1px solid #b7bdc4;
+    border-radius: 0.5rem;
+}
+
+[type='radio'] {
+    display: none;
 }
 
 .form-check-input:hover:not(:checked) + .form-check-label {
-    background-color: #eee;
-
+    /*background-color: #fffd8a59;*/
 }
 
 .form-check-input:checked + .form-check-label {
     background-color: transparent;
-    color: #212529;
 }
 
 .form-check:hover {
-    background-color: #f0f0f0; /* Change to the desired color */
+    background-color: #eee; /* Change to the desired color */
 }
+
+.answer input:checked + label {
+  background-color: yellow;
+}
+
 
 .fixed-top {
     position: fixed;
