@@ -51,7 +51,8 @@
                     <form class="answer-form">
                         {% for answer in question.answers %}
                             <div class="form-check" id="answer"
-                                 onclick="document.getElementById('answer-{{ answer.id }}').click()">
+                                    {#                                 onclick="document.getElementById('answer-{{ answer.id }}').click()">#}
+                                 onclick="activateInput('{{ answer.id }}')">
                                 <input class="form-check-input" type="radio" name="{{ question.id }}"
                                        onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')"
                                        id="answer-{{ answer.id }}"
@@ -135,20 +136,28 @@
             const answerDiv = selectedAnswer.parentElement;
             let resultElement = document.getElementById(questionId + '-result');
 
-            if (rightAnswer == rightAnswerIndex) {
-                answerDiv.style.backgroundColor = greenColor;
-                resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
-                correctCount++;
-                localStorage.setItem(selectedAnswer.id, 'true');
-            } else {
-                answerDiv.style.backgroundColor = redColor;
-                resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
-                wrongCount++;
-                localStorage.setItem(selectedAnswer.id, 'false');
+            if (!localStorage.getItem(selectedAnswer.id)) {
+                if (rightAnswer == rightAnswerIndex) {
+                    answerDiv.style.backgroundColor = greenColor;
+                    resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
 
+                    correctCount++;
+                    localStorage.setItem(selectedAnswer.id, 'true');
+                } else {
+                    answerDiv.style.backgroundColor = redColor;
+                    resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
+                    wrongCount++;
+                    localStorage.setItem(selectedAnswer.id, 'false');
+                }
+
+                setCount()
             }
+            
+        }
 
-            setCount()
+        function activateInput(inputId) {
+            // Simulate a click on the input element with the given ID
+            document.getElementById('answer-' + inputId).click();
         }
 
         function setCount() {
