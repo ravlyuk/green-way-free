@@ -165,12 +165,12 @@
             document.getElementById("correct-count").textContent = correctCount.toString();
             document.getElementById("wrong-count").textContent = wrongCount.toString();
 
-            let statistic = ((100 / len) * correctCount);
+            let statistic = ((100 / len) * correctCount).toFixed(0).toString();
 
-            if (statistic === 100) {
+            if (statistic === '100') {
                 localStorage.setItem(slug, 'Пройдено');
-            } else if (statistic > 0) {
-                localStorage.setItem(slug, statistic.toFixed(0).toString() + '%');
+            } else if (Number(statistic) > 0) {
+                localStorage.setItem(slug, statistic + '%');
             }
 
         }
