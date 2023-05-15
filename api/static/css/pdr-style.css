@@ -11,6 +11,7 @@
     padding-bottom: 20px;
 }
 
+
 .results-container {
     position: fixed;
     bottom: 0;
@@ -19,6 +20,12 @@
     padding: 10px;
     border-top: 1px solid #ccc;
     width: 200px;
+}
+
+@media (max-width: 1400px) {
+    .results-container {
+        display: none;
+    }
 }
 
 .wrong-text {
@@ -46,6 +53,12 @@
 
 .btn-up:before {
     content: "\2191"; /* Unicode character for upward arrow */
+}
+
+@media (max-width: 1400px) {
+    .btn-up {
+        display: none;
+    }
 }
 
 .comments {
@@ -81,7 +94,7 @@
 }
 
 .answer input:checked + label {
-  background-color: yellow;
+    background-color: yellow;
 }
 
 
@@ -120,3 +133,6 @@
 ::-webkit-scrollbar-thumb:hover {
     background: black;
 }
+
+
+
