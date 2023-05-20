@@ -109,6 +109,7 @@
                         answerDiv.style.backgroundColor = greenColor;
                         resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
                         correctCount++;
+                        answerDiv.scrollIntoView({ behavior: "smooth" });
                     } else if (input.id in localStorage && localStorage.getItem(input.id) === 'false') {
                         answerDiv.style.backgroundColor = redColor;
                         wrongCount++;
