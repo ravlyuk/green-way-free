@@ -19,14 +19,6 @@
               class="title-quiz font-weight-bold">{{ questions|length }} тестів</span>
     </div>
 
-    <div style="padding-bottom: 40px">
-        <button class="btn btn-warning" type="button"
-                onclick="clearHistory()">
-            Очистити історію відповідей
-        </button>
-
-    </div>
-
 
     <!-- Results container -->
     <div class="results-container mb-4">
@@ -97,46 +89,6 @@
 
         const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-        function loadHistory() {
-
-            radioInputs.forEach(input => {
-                const inputName = input.getAttribute('name');
-                const answerDiv = input.parentElement;
-
-                if (inputName) {
-                    if (input.id in localStorage && localStorage.getItem(input.id) === 'true') {
-                        input.checked = true;
-                        let resultElement = document.getElementById(input.name + '-result');
-                        answerDiv.style.backgroundColor = greenColor;
-                        resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
-                        correctCount++;
-                        answerDiv.scrollIntoView({ behavior: "smooth" });
-                    } else if (input.id in localStorage && localStorage.getItem(input.id) === 'false') {
-                        answerDiv.style.backgroundColor = redColor;
-                        wrongCount++;
-                    }
-
-                }
-            });
-            setCount();
-        }
-
-        function clearHistory() {
-            const radioInputs = document.querySelectorAll('input[type="radio"]');
-
-            radioInputs.forEach(input => {
-                const inputName = input.getAttribute('name');
-
-                if (inputName) {
-                    if (input.id in localStorage) {
-                        localStorage.removeItem(input.id);
-                    }
-                }
-                localStorage.removeItem(slug);
-            });
-
-            location.reload()
-        }
 
         function checkAnswer(questionId, rightAnswerIndex) {
             let selectedAnswer = document.querySelector('input[name="' + questionId + '"]:checked');
@@ -144,22 +96,20 @@
             const answerDiv = selectedAnswer.parentElement;
             let resultElement = document.getElementById(questionId + '-result');
 
-            if (!localStorage.getItem(selectedAnswer.id)) {
-                if (rightAnswer == rightAnswerIndex) {
-                    answerDiv.style.backgroundColor = greenColor;
-                    resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
 
-                    correctCount++;
-                    localStorage.setItem(selectedAnswer.id, 'true');
-                } else {
-                    answerDiv.style.backgroundColor = redColor;
-                    resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
-                    wrongCount++;
-                    localStorage.setItem(selectedAnswer.id, 'false');
-                }
+            if (rightAnswer == rightAnswerIndex) {
+                answerDiv.style.backgroundColor = greenColor;
+                resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
 
-                setCount()
+                correctCount++;
+            } else {
+                answerDiv.style.backgroundColor = redColor;
+                resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
+                wrongCount++;
             }
+
+            setCount()
+
 
         }
 
@@ -174,12 +124,6 @@
 
             let statistic = ((100 / len) * correctCount).toFixed(0).toString();
 
-            if (statistic === '100') {
-                localStorage.setItem(slug, 'Пройдено');
-            } else if (Number(statistic) > 0) {
-                localStorage.setItem(slug, statistic + '%');
-            }
-
         }
 
         function scrollToTop() {
@@ -188,9 +132,6 @@
                 behavior: "smooth"
             })
         }
-
-        loadHistory()
-
 
 
 </script>

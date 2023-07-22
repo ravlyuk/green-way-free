@@ -1,4 +1,5 @@
 import json
+import os
 
 import requests
 from fastapi import HTTPException
@@ -39,7 +40,7 @@ def download_questions():
         json.dump(subjects, file, indent=4, sort_keys=True, ensure_ascii=False)
 
 
-def read_questions(subject_slug: float):
+def read_questions(subject_slug: float | str):
     try:
         with open(f'{json_folder}/{subject_slug}.json', 'r') as file:
             return json.loads(file.read())
@@ -56,5 +57,26 @@ def get_subjects() -> dict | None:
         raise HTTPException(status_code=404, detail="Subject not found")
 
 
+def combine_json_files(input_folder, output_file):
+    combined_data = []
+
+    # Loop through each file in the input folder
+    for filename in os.listdir(input_folder):
+        if filename.endswith(".json"):
+            file_path = os.path.join(input_folder, filename)
+
+            # Read and parse JSON data from the file
+            with open(file_path, "r") as file:
+                json_data = json.load(file)
+
+            # Append the JSON data to the combined list
+            combined_data.append(json_data)
+
+    # Write the combined JSON data to the output file
+    with open(output_file, "w") as output:
+        json.dump(combined_data, output, ensure_ascii=False, indent=4, sort_keys=True, )
+
+
 if __name__ == '__main__':
     download_questions()
+    combine_json_files(json_folder, json_folder + "/all_questions.json")

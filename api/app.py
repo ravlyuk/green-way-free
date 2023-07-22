@@ -1,3 +1,5 @@
+import random
+
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
@@ -37,6 +39,19 @@ def subject(request: Request, pk: int | float):
     subject_name = get_subjects()[str(pk)]
     return templates.TemplateResponse("subject.html",
                                       {"request": request, 'questions': questions, 'title': subject_name})
+
+
+@app.get('/exam')
+def exam(request: Request):
+    questions = read_questions('all_questions')[0]
+    random_questions = random.sample(questions, 20)
+    return templates.TemplateResponse(
+        "exam.html",
+        {
+            "request": request, 'questions': random_questions,
+            'title': '20 випадкових питань'
+        }
+    )
 
 
 if __name__ == "__main__":
