@@ -5,12 +5,24 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 
-from config import json_folder
-from services import get_subjects, read_questions, download_questions, combine_json_files
+from services import get_subjects, read_questions
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get('/pdr/exam')
+def exam(request: Request):
+    questions = read_questions('all_questions')[0]
+    random_questions = random.sample(questions, 20)
+    return templates.TemplateResponse(
+        "exam.html",
+        {
+            "request": request, 'questions': random_questions,
+            'title': '20 випадкових питань'
+        }
+    )
 
 
 @app.get('/')
@@ -40,19 +52,6 @@ def subject(request: Request, pk: int | float):
     subject_name = get_subjects()[str(pk)]
     return templates.TemplateResponse("subject.html",
                                       {"request": request, 'questions': questions, 'title': subject_name})
-
-
-@app.get('/pdr/exam')
-def exam(request: Request):
-    questions = read_questions('all_questions')[0]
-    random_questions = random.sample(questions, 20)
-    return templates.TemplateResponse(
-        "exam.html",
-        {
-            "request": request, 'questions': random_questions,
-            'title': '20 випадкових питань'
-        }
-    )
 
 
 if __name__ == "__main__":
