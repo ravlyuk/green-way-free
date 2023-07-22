@@ -14,8 +14,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get('/pdr/exam')
 def exam(request: Request):
-    questions = read_questions('all_questions')[0]
-    random_questions = random.sample(questions, 20)
+    all_questions = []
+    questions = read_questions('all_questions')
+    for question in questions:
+        all_questions.extend(question)
+    random_questions = random.choices(all_questions, k=20)
     return templates.TemplateResponse(
         "exam.html",
         {

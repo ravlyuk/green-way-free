@@ -60,7 +60,6 @@ def get_subjects() -> dict | None:
 def combine_json_files(input_folder, output_file):
     combined_data = []
 
-    # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
         if filename.endswith(".json"):
             file_path = os.path.join(input_folder, filename)
@@ -69,10 +68,8 @@ def combine_json_files(input_folder, output_file):
             with open(file_path, "r") as file:
                 json_data = json.load(file)
 
-            # Append the JSON data to the combined list
-            combined_data.append(json_data)
+                combined_data.append(json_data)
 
-    # Write the combined JSON data to the output file
     with open(output_file, "w") as output:
         json.dump(combined_data, output, ensure_ascii=False, indent=4, sort_keys=True, )
 
