@@ -42,7 +42,7 @@ def subject(request: Request, pk: int | float):
                                       {"request": request, 'questions': questions, 'title': subject_name})
 
 
-@app.get('/exam')
+@app.get('/pdr/exam')
 def exam(request: Request):
     questions = read_questions('all_questions')[0]
     random_questions = random.sample(questions, 20)
