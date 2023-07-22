@@ -13,13 +13,6 @@ templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-async def on_startup():
-    # Add your code here, for example, connecting to a database, loading configuration, etc.
-    print("Server is starting...")
-    download_questions()
-    combine_json_files(json_folder, json_folder + "/all_questions.json")
-
-
 @app.get('/')
 def home(request: Request):
     return templates.TemplateResponse('index.html', {"request": request})
@@ -62,6 +55,5 @@ def exam(request: Request):
     )
 
 
-app.add_event_handler("startup", on_startup)
 if __name__ == "__main__":
     uvicorn.run('app:app', host="0.0.0.0", port=8001, reload=True, workers=2)
