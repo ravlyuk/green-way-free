@@ -5,11 +5,19 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 
-from services import get_subjects, read_questions
+from config import json_folder
+from services import get_subjects, read_questions, download_questions, combine_json_files
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+async def on_startup():
+    # Add your code here, for example, connecting to a database, loading configuration, etc.
+    print("Server is starting...")
+    download_questions()
+    combine_json_files(json_folder, json_folder + "/all_questions.json")
 
 
 @app.get('/')
