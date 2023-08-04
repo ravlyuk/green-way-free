@@ -36,7 +36,7 @@
       positionCard.id = `position_${positionsCount}`;
       positionCard.innerHTML = `
         <div class="card-body">
-          <h5 class="card-title">Позиція ${positionsCount + 1}: <span id="profit_${positionsCount}" class="positive">0</span> USD</h5>
+          <h6 class="card-title">Позиція ${positionsCount + 1}: <span id="profit_${positionsCount}" class="positive">0</span> USD</h6>
           <button onclick="updateProfit(${positionsCount}, -${lossAmount})" class="btn btn-danger" id="loss_${positionsCount}">Stop loss</button>
           <button onclick="setProfit(${positionsCount})" class="btn btn-success" id="profit_${positionsCount}">Take profit</button>
           <button onclick="removePosition(${positionsCount})" class="btn btn-warning">Видалити</button>
@@ -131,7 +131,8 @@
 
 <style>
     #totalProfitSection {
-      font-size: 22px;
+      font-size: 20px;
+      font-weight: bold;
       margin-top: 20px;
     }
 
