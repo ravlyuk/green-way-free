@@ -166,3 +166,7 @@
     border-color: #ffc107;
 }
 
+.done-text {
+    float: right;
+    color: green;
+}
