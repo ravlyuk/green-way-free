@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Калькулятор трейдера{% endblock %}
+{% block title_page %}Калькулятор трейдера{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content">
+        <div class="col-md-6 col-sm-12">
+            <form>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="number" placeholder="Введіть число 1">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="percentage" placeholder="Введіть число 2">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="calculate()">Розрахувати</button>
+            </form>
+            <p class="result mt-4" id="result"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        let number = document.getElementById("number").value;
+        let percentage = document.getElementById("percentage").value;
+        let result = ((number / percentage) * 100).toFixed(2);
+        document.getElementById("result").innerHTML = "Результат: " + result + "%";
+    }
+
+    document.getElementsByTagName("input").oninput = function (event) {
+        this.value = this.value.replace(/[^0-9.,]/g, '').replace(/(\..*?)\..*/g, '$1');
+    };
+
+</script>
+{% endblock %}

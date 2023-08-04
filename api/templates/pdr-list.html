@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}Теми ПДР{% endblock %}
+{% block title_page %}Теми ПДР{% endblock %}
 
 {% block content %}
-    <div class="container main-container">
-        <h1 class="title-quiz">Теми ПДР</h1>
-        <ul class="list-group">
-            {% for subject_id, subject_title in subjects.items() %}
-                <li class="list-group-item">
-                    <a href="/pdr/{{ subject_id }}" title="{{ subject_title }}">{{ subject_title }}</a>
-                    <span class="done-text"></span>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div>
+    <ul class="list-group">
+        {% for subject_id, subject_title in subjects.items() %}
+        <li class="list-group-item">
+            <a href="/pdr/{{ subject_id }}" title="{{ subject_title }}">{{ subject_title }}</a>
+            <span class="done-text"></span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
-    <script>
+<script>
         function loadHistory() {
 
             const subjects = document.querySelectorAll("li.list-group-item");
@@ -32,17 +32,9 @@
         }
 
         loadHistory();
-    </script>
 
-    <style>
-        .title-quiz {
-            padding-bottom: 20px;
-        }
+</script>
 
-        .done-text {
-            float: right;
-            color: green;
-        }
-    </style>
+
 {% endblock %}
 

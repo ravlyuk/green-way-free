@@ -30,7 +30,7 @@ def exam(request: Request):
 
 @app.get('/')
 def home(request: Request):
-    return templates.TemplateResponse('index.html', {"request": request})
+    return templates.TemplateResponse('home.html', {"request": request})
 
 
 @app.get('/pdr')
@@ -55,6 +55,21 @@ def subject(request: Request, pk: int | float):
     subject_name = get_subjects()[str(pk)]
     return templates.TemplateResponse("subject.html",
                                       {"request": request, 'questions': questions, 'title': subject_name})
+
+
+@app.get('/pi-number')
+def pi_number(request: Request):
+    return templates.TemplateResponse('pi-number.html', {"request": request})
+
+
+@app.get('/calc')
+def calc(request: Request):
+    return templates.TemplateResponse('calc.html', {"request": request})
+
+
+@app.get('/trader-calc')
+def trader_calc(request: Request):
+    return templates.TemplateResponse('trader-calc.html', {"request": request})
 
 
 if __name__ == "__main__":

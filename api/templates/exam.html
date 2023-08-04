@@ -5,7 +5,7 @@
 {% block content %}
 
 
-<div class="container mt-3 main-container">
+<div>
     <div style="margin-bottom: 20px;">
         <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
     </div>
@@ -14,9 +14,9 @@
 
     <!-- Title and number of questions -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 id="subj_title" class="title-quiz mb-0">{{ title }}</h2>
+        <h2 id="subj_title" class="title-subject mb-0">{{ title }}</h2>
         <span id="len" value="{{ questions|length }}"
-              class="title-quiz font-weight-bold">{{ questions|length }} тестів</span>
+              style="font-weight: bold;">{{ questions|length }} тестів</span>
     </div>
 
 

@@ -3,4 +3,4 @@ run:
 rund:
 	docker-compose up --build --remove-orphans -d
 stop:
-	docker-compose down
+	docker-compose downmake run
