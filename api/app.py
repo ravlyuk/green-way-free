@@ -72,5 +72,10 @@ def trader_calc(request: Request):
     return templates.TemplateResponse('trader-calc.html', {"request": request})
 
 
+@app.get('/rr-calc')
+def rr_calc(request: Request):
+    return templates.TemplateResponse('rr-calc.html', {"request": request, "title": "Win calc"})
+
+
 if __name__ == "__main__":
     uvicorn.run('app:app', host="0.0.0.0", port=8001, reload=True, workers=2)
