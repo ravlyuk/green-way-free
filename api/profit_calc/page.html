@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>Bootstrap Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/pdr-style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='images/favicon.ico') }}">
     <style>
         body {
             background-color: #f8f9fa;
@@ -25,33 +22,33 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <a class="navbar-brand" href="/">YERAV</a>
+        <a class="navbar-brand" href="#">My Website</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Головна</a>
+                    <a class="nav-link" href="#">Main</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="pdrDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        ПДР
+                        PDR
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pdrDropdown">
-                        <a class="dropdown-item" href="/pdr">Теми ПД</a>
-                        <a class="dropdown-item" href="/pdr/exam">Режим іспиту</a>
-                        <a class="dropdown-item" href="/pdr/about">Про проект</a>
+                        <a class="dropdown-item" href="#">Subjects PDR</a>
+                        <a class="dropdown-item" href="#">Ispyt</a>
+                        <a class="dropdown-item" href="#">About</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="scriptsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Скрипти
+                        Scripts
                     </a>
                     <div class="dropdown-menu" aria-labelledby="scriptsDropdown">
-                        <a class="dropdown-item" href="/pi-number">PI number</a>
-                        <a class="dropdown-item" href="/calc">Калькулятор %</a>
-                        <a class="dropdown-item" href="/trader-calc">Trade helper</a>
+                        <a class="dropdown-item" href="#">Pi number</a>
+                        <a class="dropdown-item" href="#">Calculator 1</a>
+                        <a class="dropdown-item" href="#">Calculator 2</a>
                     </div>
                 </li>
             </ul>
@@ -59,8 +56,8 @@
     </nav>
 
     <div class="container mt-4">
-        <h1>{% block title_page %}{% endblock %}</h1>
-        {% block content %}{% endblock %}
+        <h1>Welcome to My Website</h1>
+        <p>This is a sample content for the main page.</p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -53,7 +53,7 @@
      // TOTAL PROFIT
      totalProfit += profit;
      const totalProfitElem = document.getElementById('totalProfit');
-     totalProfitElem.textContent = createTotalProfitStr(totalProfit);
+     totalProfitElem.textContent =`${addPlusSign(totalProfit.toFixed(2))}$ (${addPlusSign(calc_percentage(totalProfit, deposit).toFixed(2))}%)`;
      totalProfitElem.classList.remove('positive', 'negative');
 
      if (totalProfit < 0) totalProfitElem.classList.add('negative');
@@ -65,11 +65,6 @@
      lossButton.disabled = true;
      profitElement.disabled = true;
      positionsClickable[positionIndex] = false;
-   }
-
-   function createTotalProfitStr(totalProfit) {
-      const deposit = document.getElementById('deposit').value;
-      return `${addPlusSign(totalProfit.toFixed(2))}$ (${addPlusSign(calc_percentage(totalProfit, deposit).toFixed(2))}%)`;
    }
 
    function calc_percentage(val1, val2) {
@@ -99,18 +94,12 @@
 
    function removePosition(positionIndex) {
      const positionCard = document.getElementById(`position_${positionIndex}`);
-     let profit = positionsData[positionIndex];
-     profit = parseFloat(profit.replace(/[^0-9.-]+/g,""));
-
+     const profit = positionsData[positionIndex];
      positionCard.remove();
      totalProfit -= profit;
 
-     console.log(profit, totalProfit);
-
-     let totalProfitElem = document.getElementById('totalProfit');
-     totalProfitElem.textContent = createTotalProfitStr(totalProfit);
-     
-
+     const totalProfitElem = document.getElementById('totalProfit');
+     totalProfitElem.textContent = totalProfit.toFixed(2);
      totalProfitElem.classList.remove('positive', 'negative');
 
      if (totalProfit < 0) totalProfitElem.classList.add('negative');
@@ -140,7 +129,7 @@
      color: darkred;
    }
    .card-title .positive {
-
+     
      color: darkgreen;
    }
 </style>
