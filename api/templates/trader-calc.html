@@ -16,6 +16,15 @@
    <div id="positions" class="mt-3"></div>
    <div id="totalProfitSection">Загальний прибуток: <span id="totalProfit" class="positive">0</span></div>
    <button onclick="addPosition()" class="btn btn-primary mt-3">Додати позицію</button>
+
+<div class="results-container mb-4">
+
+        <div>
+            <div class="p-2">
+                <div class="h4 mb-0"><span id="total-pin">0</span></div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
    let positionsCount = 0, totalProfit = 0, positionsData = {}, positionsClickable = {};
@@ -50,10 +59,12 @@
      const updatedProfit = `${addPlusSign((newProfit).toFixed(2))}$ (${addPlusSign(calc_percentage(newProfit, deposit))}%)`;
      profitElement.textContent = updatedProfit;
 
+
      // TOTAL PROFIT
      totalProfit += profit;
      const totalProfitElem = document.getElementById('totalProfit');
      totalProfitElem.textContent = createTotalProfitStr(totalProfit);
+     document.getElementById(`total-pin`).textContent = createTotalProfitStr(totalProfit);
      totalProfitElem.classList.remove('positive', 'negative');
 
      if (totalProfit < 0) totalProfitElem.classList.add('negative');
@@ -109,7 +120,7 @@
 
      let totalProfitElem = document.getElementById('totalProfit');
      totalProfitElem.textContent = createTotalProfitStr(totalProfit);
-     
+
 
      totalProfitElem.classList.remove('positive', 'negative');
 
