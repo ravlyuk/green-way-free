@@ -5,18 +5,19 @@
 
 {% block content %}
 
-<div>
-    <ul class="list-group">
-        {% for subject_id, subject_title in subjects.items() %}
-        <li class="list-group-item">
-            <a href="/pdr/{{ subject_id }}" title="{{ subject_title }}">{{ subject_title }}</a>
-            <span class="done-text"></span>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
+    <div>
+        <ul class="list-group">
+            {% for filename, subject in subjects.items() %}
+                <li class="list-group-item">
+                    <a href="/pdr/{{ filename }}"
+                       title="{{ subject.title }}">{{ subject.title }}</a> {{ subject.count }} питань
+                    <span class="done-text"></span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<script>
+    <script>
         function loadHistory() {
 
             const subjects = document.querySelectorAll("li.list-group-item");
@@ -35,7 +36,7 @@
         loadHistory();
 
 
-</script>
+    </script>
 
 
 {% endblock %}

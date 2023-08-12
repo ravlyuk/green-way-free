@@ -133,13 +133,14 @@
 ::-webkit-scrollbar-thumb:hover {
     background: black;
 }
+
 .list-group-item {
     position: relative;
     display: block;
     padding: 0.75rem 1.25rem;
     margin-bottom: -1px;
     background-color: #fff;
-    border: 1px solid rgba(0,0,0,.125)  !important;
+    border: 1px solid rgba(0, 0, 0, .125) !important;
 }
 
 .btn {
@@ -157,7 +158,7 @@
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .btn-warning {
@@ -169,4 +170,11 @@
 .done-text {
     float: right;
     color: green;
+}
+
+
+.list-group-item a {
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
 }

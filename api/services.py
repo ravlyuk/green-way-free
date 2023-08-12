@@ -8,7 +8,7 @@ from config import headers, json_folder, url
 from request_data import request_data
 
 
-def download_questions():
+def download_questions() -> None:
     subjects = {}
     for subject, data in request_data.items():
         print(f'Download questions: "{subject}"')
@@ -31,7 +31,12 @@ def download_questions():
             continue
 
         subject_slug = float(subject.split(' ')[0].strip('.'))
-        subjects.update({float(subject_slug): subject.replace('Обовязки', 'Обовʼязки')})
+        subjects.update({
+            float(subject_slug): {
+                "title": subject.replace('Обовязки', 'Обовʼязки'),
+                "count": len(resp_dict),
+            }
+        })
 
         with open(f'{json_folder}/{subject_slug}.json', 'w') as file:
             json.dump(resp_dict, file, indent=4, sort_keys=True, ensure_ascii=False)

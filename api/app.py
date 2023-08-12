@@ -11,6 +11,8 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+subjects = get_subjects()
+
 
 @app.get('/pdr/exam')
 def exam(request: Request):
@@ -35,7 +37,7 @@ def home(request: Request):
 
 @app.get('/pdr')
 def pdr(request: Request):
-    subjects = get_subjects()
+    print(subjects)
     return templates.TemplateResponse('pdr-list.html', {"request": request, 'subjects': subjects})
 
 
@@ -52,7 +54,7 @@ def contact(request: Request):
 @app.get('/pdr/{pk}')
 def subject(request: Request, pk: int | float):
     questions = read_questions(pk)
-    subject_name = get_subjects()[str(pk)]
+    subject_name = subjects[str(pk)]["title"]
     return templates.TemplateResponse("subject.html",
                                       {"request": request, 'questions': questions, 'title': subject_name})
 
@@ -75,6 +77,11 @@ def trader_calc(request: Request):
 @app.get('/rr-calc')
 def rr_calc(request: Request):
     return templates.TemplateResponse('rr-calc.html', {"request": request, "title": "Win calc"})
+
+
+@app.get('/words')
+def words(request: Request):
+    return templates.TemplateResponse('words.html', {"request": request})
 
 
 if __name__ == "__main__":

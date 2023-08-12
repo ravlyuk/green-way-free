@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Мнемотехніка чисел{% endblock %}
+{% block title_page %}Мнемотехніка чисел{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div id="numberDisplay"></div>
+                </div>
+                <div class="form-group">
+                    <label for="wordInput">Enter Word:</label>
+                    <input type="text" id="wordInput" class="form-control" placeholder="Enter word">
+                </div>
+                <button id="checkButton" class="btn btn-primary mr-2">Check Answer</button>
+                <button id="revealButton" class="btn btn-secondary mr-2">Show Correct Answer</button>
+                <button id="nextButton" class="btn btn-success">Next Question</button>
+                <div id="resultMessage" class="mt-3"></div>
+                <div id="correctAnswer" class="text-success mt-2"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const words = {
+            '1': 'ручка', '10': 'ліс', '20': 'гусь', '30': 'мʼясо', '40': 'ніс', '50': 'пояс', '60': 'буси',
+            '70': 'тіски', '80': 'вуса', '90': 'диск', '00': 'соус',
+            '2': 'лебідь', '11': 'лілія', '21': 'гол', '31': 'молоко', '41': 'нло',
+            '51': 'пилка', '61': 'білка', '71': 'тюлень', '81': 'вила', '91': 'дуло', '01': 'сіль',
+            '3': 'чайка', '12': 'луг', '22': 'гіг', '32': 'маг', '42': 'нога',
+            '52': 'погони', '62': 'біг', '72': 'тигр', '82': 'вагон', '92': 'долар', '02': 'сіга',
+            '4': 'стільчик', '13': 'лом', '23': 'гамак', '33': 'мама', '43': 'немо',
+            '53': 'пума', '63': 'бумер', '73': 'том', '83': 'вимʼя', '93': 'дім', '03': 'сімʼя',
+            '5': 'серп', '14': 'луна', '24': 'геній', '34': 'міна', '44': 'неон',
+            '54': 'піна', '64': 'банан', '74': 'тінь', '84': 'вена', '94': 'Ден', '04': 'сіно',
+            '6': 'замок', '15': 'лапа', '25': 'гіпс', '35': 'мопс', '45': 'нептун',
+            '55': 'піп', '65': 'біп', '75': 'тапки', '85': 'ВІП', '95': 'дупло', '05': 'суп',
+            '7': 'коса', '16': 'лоб', '26': 'губи', '36': 'мобіла', '46': 'небо',
+            '56': 'ПАБ', '66': 'баба', '76': 'тюбік', '86': 'вебка', '96': 'дуб', '06': 'сабля',
+            '8': 'сніговик', '17': 'лати', '27': 'гот', '37': 'мати', '47': 'нитка',
+            '57': 'патріот', '67': 'бита', '77': 'тату', '87': 'вата', '97': 'діти', '07': 'сито',
+            '9': 'крюк', '18': 'лава', '28': 'гав', '38': 'мяв', '48': 'наві',
+            '58': 'повар', '68': 'бювет', '78': 'ТВ', '88': 'Вован', '98': 'діва', '08': 'сова',
+            '0': 'мʼяч', '19': 'лід', '29': 'гід', '39': 'мед', '49': 'надпис',
+            '59': 'пуд', '69': 'бодібілдер', '79': 'Тедді', '89': 'вода', '99': 'дід', '09': 'суд'
+        };
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const numberDisplay = document.getElementById('numberDisplay');
+            const wordInput = document.getElementById('wordInput');
+            const checkButton = document.getElementById('checkButton');
+            const revealButton = document.getElementById('revealButton');
+            const nextButton = document.getElementById('nextButton');
+            const resultMessage = document.getElementById('resultMessage');
+            const correctAnswer = document.getElementById('correctAnswer');
+
+            let currentNumber = generateRandomNumber();
+            displayNumber(currentNumber);
+
+            checkButton.addEventListener('click', () => {
+                const enteredWord = wordInput.value.trim().toLowerCase();
+                const correctWord = words[currentNumber].toLowerCase();
+
+                if (enteredWord === correctWord) {
+                    resultMessage.textContent = 'Correct!';
+                    resultMessage.classList.remove('text-danger');
+                    resultMessage.classList.add('text-success');
+                } else {
+                    resultMessage.textContent = 'Wrong answer.';
+                    resultMessage.classList.remove('text-success');
+                    resultMessage.classList.add('text-danger');
+                }
+
+                correctAnswer.textContent = '';
+            });
+
+            revealButton.addEventListener('click', () => {
+                correctAnswer.textContent = `Correct word: ${words[currentNumber]}`;
+                resultMessage.textContent = '';
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentNumber = generateRandomNumber();
+                wordInput.value = '';
+                resultMessage.textContent = '';
+                correctAnswer.textContent = '';
+                displayNumber(currentNumber);
+            });
+
+            function generateRandomNumber() {
+                return Math.floor(Math.random() * 100) + 1;
+            }
+
+            function displayNumber(number) {
+                numberDisplay.textContent = `Number: ${number}`;
+            }
+        });
+    </script>
+{% endblock %}

@@ -4,96 +4,96 @@
 
 {% block content %}
 
-<div>
-    <div style="margin-bottom: 20px;">
-        <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
-    </div>
-
-    <button class="btn-up" onclick="scrollToTop()"></button>
-
-    <!-- Title and number of questions -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 id="subj_title" class="title-subject mb-0">{{ title }}</h2>
-        <span id="len" value="{{ questions|length }}"
-              style="font-weight: bold;">{{ questions|length }} тестів</span>
-    </div>
-
-    <div style="padding-bottom: 40px">
-        <button class="btn btn-warning" type="button"
-                onclick="clearHistory()">
-            Очистити історію відповідей
-        </button>
-
-    </div>
-
-
-    <!-- Results container -->
-    <div class="results-container mb-4">
-
-        <div>
-            <div class="p-2">
-                <div class="text-success mb-1">Правильно:</div>
-                <div class="h4 mb-0"><span id="correct-count" class="correct-text">0</span></div>
-            </div>
-            <div class="p-2">
-                <div class="text-danger mb-1">Не правильно:</div>
-                <div class="h4 mb-0"><span id="wrong-count" class="wrong-text">0</span></div>
-            </div>
+    <div>
+        <div style="margin-bottom: 20px;">
+            <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
         </div>
-    </div>
 
-    {% for question in questions %}
-    <div class="card mb-3">
-        {% if question.image %}
-        <img src="{{ question.image }}" class="card-img-top image-quiz rounded" alt="{{ question.text }}">
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ question.text }}</h5>
-            <form class="answer-form">
-                {% for answer in question.answers %}
-                <div class="form-check" id="answer"
-                     {# onclick="document.getElementById('answer-{{ answer.id }}').click()">#}
-                    onclick="activateInput('{{ answer.id }}')">
-                    <input class="form-check-input" type="radio" name="{{ question.id }}"
-                           onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')"
-                           id="answer-{{ answer.id }}"
-                           value="{{ loop.index }}">
-                    <label class="form-check-label" for="answer-{{ answer.id }}">
-                        {{ answer.text }}
-                    </label>
+        <button class="btn-up" onclick="scrollToTop()"></button>
+
+        <!-- Title and number of questions -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="subj_title" class="title-subject mb-0">{{ title }}</h2>
+            <span id="len" value="{{ questions|length }}"
+                  style="font-weight: bold;">{{ questions|length }} тестів</span>
+        </div>
+
+        <div style="padding-bottom: 40px">
+            <button class="btn btn-warning" type="button"
+                    onclick="clearHistory()">
+                Очистити історію відповідей
+            </button>
+
+        </div>
+
+
+        <!-- Results container -->
+        <div class="results-container mb-4">
+
+            <div>
+                <div class="p-2">
+                    <div class="text-success mb-1">Правильно:</div>
+                    <div class="h4 mb-0"><span id="correct-count" class="correct-text">0</span></div>
                 </div>
-                {% endfor %}
-
-                <!-- Hidden question ID field -->
-                <input type="hidden" name="question_id" value="{{ question.id }}">
-
-                <!-- Link to comments -->
-                <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}"
-                   target="_blank"
-                   class="comments mt-3 d-block">Коментарі</a>
-                <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
-
-
-            </form>
+                <div class="p-2">
+                    <div class="text-danger mb-1">Не правильно:</div>
+                    <div class="h4 mb-0"><span id="wrong-count" class="wrong-text">0</span></div>
+                </div>
+            </div>
         </div>
+
+        {% for question in questions %}
+            <div class="card mb-3">
+                {% if question.image %}
+                    <img src="{{ question.image }}" class="card-img-top image-quiz rounded" alt="{{ question.text }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.text }}</h5>
+                    <form class="answer-form">
+                        {% for answer in question.answers %}
+                            <div class="form-check" id="answer"
+                                    {# onclick="document.getElementById('answer-{{ answer.id }}').click()">#}
+                                 onclick="activateInput('{{ answer.id }}')">
+                                <input class="form-check-input" type="radio" name="{{ question.id }}"
+                                       onclick="checkAnswer('{{ question.id }}', '{{ question.rightAnswerIndex }}')"
+                                       id="answer-{{ answer.id }}"
+                                       value="{{ loop.index }}">
+                                <label class="form-check-label" for="answer-{{ answer.id }}">
+                                    {{ answer.text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+
+                        <!-- Hidden question ID field -->
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
+
+                        <!-- Link to comments -->
+                        <a href="https://green-way.com.ua/uk/test-pdd/twenty-questions/{{ question.id }}"
+                           target="_blank"
+                           class="comments mt-3 d-block">Коментарі</a>
+                        <div style="padding-top: 5px" id="{{ question.id }}-result"></div>
+
+
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div style="margin-bottom: 20px; padding-top: 40px">
+            <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
+        </div>
+
+
     </div>
-    {% endfor %}
 
-    <div style="margin-bottom: 20px; padding-top: 40px">
-        <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
-    </div>
+    <style>
+        .title-subject {
+            padding-bottom: 20px;
+        }
 
+    </style>
 
-</div>
-
-<style>
-.title-subject {
-    padding-bottom: 20px;
-}
-
-</style>
-
-<script>
+    <script>
         let correctCount = 0;
         let wrongCount = 0;
         let greenColor = "#46f86fb0"
@@ -116,7 +116,7 @@
                         answerDiv.style.backgroundColor = greenColor;
                         resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
                         correctCount++;
-                        answerDiv.scrollIntoView({ behavior: "smooth" });
+                        answerDiv.scrollIntoView({behavior: "smooth"});
                     } else if (input.id in localStorage && localStorage.getItem(input.id) === 'false') {
                         answerDiv.style.backgroundColor = redColor;
                         wrongCount++;
@@ -198,9 +198,5 @@
         loadHistory()
 
 
-
-
-
-
-</script>
+    </script>
 {% endblock %}
