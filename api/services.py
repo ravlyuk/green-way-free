@@ -23,7 +23,8 @@ def download_questions() -> None:
             .replace('&lsquo;', 'ʼ') \
             .replace('&quot;', "'") \
             .replace('&ldquo;', "'") \
-            .replace('&rdquo;', "'")
+            .replace('&rdquo;', "'") \
+            .replace('&shy;', "")
 
         resp_dict = json.loads(resp)
 
