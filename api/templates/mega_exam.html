@@ -54,7 +54,7 @@
         const radioInputs = document.querySelectorAll('input[type="radio"]');
 
         async function requestApi(dataToSend) {
-            const apiUrl = "http://0.0.0.0/pdr/load_mistakes"
+            const apiUrl = window.location.origin + "/pdr/load_mistakes"
             const headers = {
                 'Content-Type': 'application/json', // Specify the content type as JSON
             };
@@ -75,6 +75,9 @@
             console.log(all_questions);
 
             const questionsContainer = document.getElementById("questions-container");
+            const len = document.getElementById("len");
+            len.innerHTML = all_questions.length + ' тестів';
+            len.value = all_questions.length;
 
             all_questions.forEach((question, index) => {
                 const questionCard = document.createElement("div");
