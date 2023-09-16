@@ -60,7 +60,6 @@ async def load_mistakes(mistake_list: List):
             if answer["id"] in mistake_list:
                 all_mistake_questions.append(q)
             break
-    print(all_mistake_questions)
     return all_mistake_questions
 
 
