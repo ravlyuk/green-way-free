@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 import uvicorn
 from fastapi import FastAPI, Request
@@ -19,7 +20,7 @@ def exam(request: Request):
     all_questions = []
     questions = read_questions('all_questions')
     for question in questions:
-        all_questions.extend(question)
+        all_questions.append(question)
     random_questions = random.choices(all_questions, k=20)
     return templates.TemplateResponse(
         "exam.html",
@@ -28,6 +29,39 @@ def exam(request: Request):
             'title': '20 випадкових питань'
         }
     )
+
+
+@app.get('/pdr/mega_exam')
+def mega_exam(request: Request):
+    return templates.TemplateResponse(
+        "mega_exam.html",
+        {
+            "request": request,
+            'title': 'Всі неправильні відповіді з усіх тем'
+        }
+    )
+
+
+@app.post('/pdr/load_mistakes')
+async def load_mistakes(mistake_list: List):
+    mistake_list = [m.split("-")[-1] for m in mistake_list]
+
+    all_mistake_questions = []
+    questions = read_questions('all_questions')
+
+    all_questions = []
+    for question in questions:
+        all_questions.append(question)
+
+    for q in all_questions:
+
+        for answer in q.get("answers", []):
+            # print(answer)
+            if answer["id"] in mistake_list:
+                all_mistake_questions.append(q)
+            break
+    print(all_mistake_questions)
+    return all_mistake_questions
 
 
 @app.get('/')
@@ -85,4 +119,4 @@ def words(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run('app:app', host="0.0.0.0", port=8001, reload=True, workers=2)
+    uvicorn.run('app:app', host="0.0.0.0", port=80, reload=True, workers=2)

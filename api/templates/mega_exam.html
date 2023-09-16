@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div>
+        <div style="margin-bottom: 20px;">
+            <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
+        </div>
+
+        <button class="btn-up" onclick="scrollToTop()"></button>
+
+        <!-- Title and number of questions -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="subj_title" class="title-subject mb-0">{{ title }}</h2>
+            <span id="len" value="{{ questions|length }}"
+                  style="font-weight: bold;">{{ questions|length }} тестів</span>
+        </div>
+
+
+        <!-- Results container -->
+        <div class="results-container mb-4">
+
+            <div>
+                <div class="p-2">
+                    <div class="text-success mb-1">Правильно:</div>
+                    <div class="h4 mb-0"><span id="correct-count" class="correct-text">0</span></div>
+                </div>
+                <div class="p-2">
+                    <div class="text-danger mb-1">Не правильно:</div>
+                    <div class="h4 mb-0"><span id="wrong-count" class="wrong-text">0</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="questions-container"></div>
+
+        <div style="margin-bottom: 20px; padding-top: 40px">
+            <a href="/pdr/"><span class="arrow-icon">&larr;</span> Повернутись до списку тем</a>
+        </div>
+
+
+    </div>
+
+    <script>
+        let correctCount = 0;
+        let wrongCount = 0;
+        let greenColor = "#46f86fb0"
+        let redColor = "#f8a1a9ad"
+        let slug = document.getElementById('subj_title').textContent;
+        let len = document.getElementById('len').getAttribute('value').toString();
+
+        const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+        async function requestApi(dataToSend) {
+            const apiUrl = "http://0.0.0.0/pdr/load_mistakes"
+            const headers = {
+                'Content-Type': 'application/json', // Specify the content type as JSON
+            };
+            const requestBody = JSON.stringify(dataToSend);
+
+
+            // Create the POST request
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: headers,
+                body: requestBody,
+            });
+
+            return response.json()
+        }
+
+        function renderQuestions(all_questions) {
+            console.log(all_questions);
+
+            const questionsContainer = document.getElementById("questions-container");
+
+            all_questions.forEach((question, index) => {
+                const questionCard = document.createElement("div");
+                questionCard.className = "card mb-3";
+
+                if (question.image) {
+                    const img = document.createElement("img");
+                    img.src = question.image;
+                    img.className = "card-img-top image-quiz rounded";
+                    img.alt = question.text;
+                    questionCard.appendChild(img);
+                }
+
+                const cardBody = document.createElement("div");
+                cardBody.className = "card-body";
+
+                const title = document.createElement("h5");
+                title.className = "card-title";
+                title.textContent = question.text;
+
+                const form = document.createElement("form");
+                form.className = "answer-form";
+
+                let answers = question.answers
+                answers.forEach((answer, ansIndex) => {
+                    const formCheck = document.createElement("div");
+                    formCheck.className = "form-check";
+                    formCheck.id = `answer`;
+                    formCheck.setAttribute("onclick", `activateInput('${answer.id}')`);
+
+                    const input = document.createElement("input");
+                    input.className = "form-check-input";
+                    input.type = "radio";
+                    input.name = `${question.id}`;
+                    input.id = `answer-${answer.id}`;
+                    input.value = ansIndex + 1;
+                    input.setAttribute("onclick", `checkAnswer('${question.id}', '${question.rightAnswerIndex}')`);
+
+                    const label = document.createElement("label");
+                    label.className = "form-check-label";
+                    label.htmlFor = `answer-${answer.id}`;
+                    label.textContent = answer.text;
+
+                    formCheck.appendChild(input);
+                    formCheck.appendChild(label);
+                    form.appendChild(formCheck);
+                });
+
+
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "question_id";
+                hiddenInput.value = question.id;
+
+                const commentsLink = document.createElement("a");
+                commentsLink.href = `https://green-way.com.ua/uk/test-pdd/twenty-questions/${question.id}`;
+                commentsLink.target = "_blank";
+                commentsLink.className = "comments mt-3 d-block";
+                commentsLink.textContent = "Коментарі";
+
+                const resultDiv = document.createElement("div");
+                resultDiv.style.paddingTop = "5px";
+                resultDiv.id = `${question.id}-result`;
+
+                form.appendChild(hiddenInput);
+                form.appendChild(commentsLink);
+                form.appendChild(resultDiv);
+
+                cardBody.appendChild(title);
+                cardBody.appendChild(form);
+                questionCard.appendChild(cardBody);
+
+                questionsContainer.appendChild(questionCard);
+            });
+
+        }
+
+        function getAllWrongAnswers() {
+            let allMistakes = [];
+            Object.keys(localStorage).forEach(function (key) {
+                let item = localStorage.getItem(key)
+                if (item === 'false') {
+                    allMistakes.push(key);
+                }
+
+            });
+
+            let questions = requestApi(allMistakes);
+            const allPromise = Promise.all([questions]);
+            allPromise.then(values => {
+                renderQuestions(values[0]);
+            });
+
+
+        }
+
+        function checkAnswer(questionId, rightAnswerIndex) {
+            let selectedAnswer = document.querySelector('input[name="' + questionId + '"]:checked');
+            let rightAnswer = selectedAnswer.value - 1
+            const answerDiv = selectedAnswer.parentElement;
+            let resultElement = document.getElementById(questionId + '-result');
+
+
+            if (rightAnswer == rightAnswerIndex) {
+                answerDiv.style.backgroundColor = greenColor;
+                resultElement.innerHTML = '<b class="correct-text">Вірно!</b>';
+
+                correctCount++;
+            } else {
+                answerDiv.style.backgroundColor = redColor;
+                resultElement.innerHTML = '<b class="wrong-text">Не вірно!</b>';
+                wrongCount++;
+            }
+
+            setCount()
+
+
+        }
+
+        function activateInput(inputId) {
+            // Simulate a click on the input element with the given ID
+            document.getElementById('answer-' + inputId).click();
+        }
+
+        function setCount() {
+            document.getElementById("correct-count").textContent = correctCount.toString();
+            document.getElementById("wrong-count").textContent = wrongCount.toString();
+
+            let statistic = ((100 / len) * correctCount).toFixed(0).toString();
+
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            })
+        }
+
+        getAllWrongAnswers();
+
+
+    </script>
+{% endblock %}

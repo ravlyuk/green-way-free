@@ -67,14 +67,14 @@ def combine_json_files(input_folder, output_file):
     combined_data = []
 
     for filename in os.listdir(input_folder):
-        if filename.endswith(".json"):
+        if filename.endswith(".json") and filename != "all_questions.json":
             file_path = os.path.join(input_folder, filename)
 
             # Read and parse JSON data from the file
             with open(file_path, "r") as file:
                 json_data = json.load(file)
 
-                combined_data.append(json_data)
+                combined_data.extend(json_data)
 
     with open(output_file, "w") as output:
         json.dump(combined_data, output, ensure_ascii=False, indent=4, sort_keys=True, )
