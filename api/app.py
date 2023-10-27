@@ -47,19 +47,14 @@ async def load_mistakes(mistake_list: List):
     mistake_list = [m.split("-")[-1] for m in mistake_list]
 
     all_mistake_questions = []
-    questions = read_questions('all_questions')
-
-    all_questions = []
-    for question in questions:
-        all_questions.append(question)
+    all_questions = read_questions('all_questions')
 
     for q in all_questions:
-
         for answer in q.get("answers", []):
-            # print(answer)
             if answer["id"] in mistake_list:
                 all_mistake_questions.append(q)
-            break
+                break
+
     return all_mistake_questions
 
 
@@ -70,7 +65,6 @@ def home(request: Request):
 
 @app.get('/pdr')
 def pdr(request: Request):
-    print(subjects)
     return templates.TemplateResponse('pdr-list.html', {"request": request, 'subjects': subjects})
 
 
